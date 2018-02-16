@@ -6,16 +6,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
     
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
 
 	<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-	<!-- <script language="JavaScript" type="text/javascript" src="/js/sprinkle.js"></script> -->
-
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -41,12 +36,11 @@
 		$.getJSON("data.json", function (data) {
 
 		var numberAI = data.total_app_instance_count;
-		// var numberService = data.
 		var totalMemory = data.total_app_memory_used_in_mb + " MB";
 		var totalDisk = data.total_disk_quota_in_mb + " MB";
 		
 		document.getElementById("numberAI").innerHTML = numberAI;
-		// document.getElementById("someInput").innerHTML = tbIndx;
+		// document.getElementById("someInput").innerHTML = xxx;
 		document.getElementById("memory").innerHTML = totalMemory;
 		document.getElementById("disk").innerHTML = totalDisk;
 		
@@ -105,28 +99,15 @@
 
 		<script>
 			
-			var play = "Hello";
 			var buildPacksName = [];
 			var buildPacksUsed = [];
 			$.getJSON("data.json", function (data) {
 			
 			for (i in data.buildpack_usages) {
 				buildPacksName.push(data.buildpack_usages[i].name);
-				console.log(data.buildpack_usages[i].name);
-				console.log(data.buildpack_usages[i].instances);
 				buildPacksUsed.push(data.buildpack_usages[i].instances);
-				var play = "bye";
 			}
 
-			//document.getElementById("buildPacksUsed").innerHTML = arr;
-			// var buildPackString = "'" + buildPacks.join("','") + "'";
-			// console.log(buildPackString);
-			console.log(buildPacksName);
-			console.log(buildPacksUsed);
-			
-			// var buildPacksUsed = buildPacksUsed;
-			
-		
 			var presets = window.chartColors;
 			var utils = Samples.utils;
 			var options = {
@@ -138,9 +119,6 @@
 					}
 				}
 			};
-			//console.log(buildPacksUsed);
-			// console.log(buildPacksUsed[0]);
-			// var testingLabel = buildPackString;
 			var testingLabel = buildPacksName; //["nodejs_buildpack", "ruby_buildpack", "binary_buildpack", "java_buildpack_offline","go_buildpack", "python_buildpack", "php_buildpack"];
 			console.log("TESTING: " + testingLabel);
 			var testingValue = buildPacksUsed; //[16, 48, 34, 96, 3, 10, 1];
@@ -171,134 +149,11 @@
 
 		</script>
 
-
-		<!-- <script>
-			var presets = window.chartColors;
-			var utils = Samples.utils;
-			var inputs = {
-				min: 8,
-				max: 16,
-				count: 8,
-				decimals: 2,
-				continuity: 1
-			};
-	
-			function generateData() {
-				// radar chart doesn't support stacked values, let's do it manually
-				var values = utils.numbers(inputs);
-				inputs.from = values;
-				return values;
-			}
-	
-			function generateLabels() {
-				return utils.months({count: inputs.count});
-			}
-	
-			utils.srand(42);
-	
-			var data = {
-				labels: generateLabels(),
-				datasets: [{
-					backgroundColor: utils.transparentize(presets.red),
-					borderColor: presets.red,
-					data: generateData(),
-					label: 'D0'
-				}, {
-					backgroundColor: utils.transparentize(presets.orange),
-					borderColor: presets.orange,
-					data: generateData(),
-					hidden: true,
-					label: 'D1',
-					fill: '-1'
-				}, {
-					backgroundColor: utils.transparentize(presets.yellow),
-					borderColor: presets.yellow,
-					data: generateData(),
-					label: 'D2',
-					fill: 1
-				}, {
-					backgroundColor: utils.transparentize(presets.green),
-					borderColor: presets.green,
-					data: generateData(),
-					label: 'D3',
-					fill: false
-				}, {
-					backgroundColor: utils.transparentize(presets.blue),
-					borderColor: presets.blue,
-					data: generateData(),
-					label: 'D4',
-					fill: '-1'
-				}, {
-					backgroundColor: utils.transparentize(presets.purple),
-					borderColor: presets.purple,
-					data: generateData(),
-					label: 'D5',
-					fill: '-1'
-				}]
-			};
-	
-			var options = {
-				maintainAspectRatio: true,
-				spanGaps: false,
-				elements: {
-					line: {
-						tension: 0.000001
-					}
-				},
-				plugins: {
-					filler: {
-						propagate: false
-					},
-					'samples-filler-analyser': {
-						target: 'chart-analyser'
-					}
-				}
-			};
-
-			var chart = new Chart('chart-0', {
-			type: 'radar',
-			data: data,
-			options: options
-		}); -->
-
-		<!-- // eslint-disable-next-line no-unused-vars
-		// function togglePropagate(btn) {
-		// 	var value = btn.classList.toggle('btn-on');
-		// 	chart.options.plugins.filler.propagate = value;
-		// 	chart.update();
-		// }
-
-		// eslint-disable-next-line no-unused-vars
-		// function toggleSmooth(btn) {
-		// 	var value = btn.classList.toggle('btn-on');
-		// 	chart.options.elements.line.tension = value ? 0.4 : 0.000001;
-		// 	chart.update();
-		// }
-
-		// // eslint-disable-next-line no-unused-vars
-		// function randomize() {
-		// 	inputs.from = [];
-		// 	chart.data.datasets.forEach(function(dataset) {
-		// 		dataset.data = generateData();
-		// 	});
-		// 	chart.update();
-		// } -->
-	<!-- </script> -->
-
-
-
-
-
 	<div style="width:75%;">
 		<canvas id="canvas"></canvas>
 	</div>
 	<br>
 	<br>
-	<!-- <button id="randomizeData">Randomize Data</button>
-	<button id="addDataset">Add Dataset</button>
-	<button id="removeDataset">Remove Dataset</button>
-	<button id="addData">Add Data</button>
-	<button id="removeData">Remove Data</button> -->
 	<script>
 		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 		var config = {
@@ -372,65 +227,6 @@
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 		};
-
-		// document.getElementById('randomizeData').addEventListener('click', function() {
-		// 	config.data.datasets.forEach(function(dataset) {
-		// 		dataset.data = dataset.data.map(function() {
-		// 			return randomScalingFactor();
-		// 		});
-
-		// 	});
-
-		// 	window.myLine.update();
-		// });
-
-		// var colorNames = Object.keys(window.chartColors);
-		// document.getElementById('addDataset').addEventListener('click', function() {
-		// 	var colorName = colorNames[config.data.datasets.length % colorNames.length];
-		// 	var newColor = window.chartColors[colorName];
-		// 	var newDataset = {
-		// 		label: 'Dataset ' + config.data.datasets.length,
-		// 		backgroundColor: newColor,
-		// 		borderColor: newColor,
-		// 		data: [],
-		// 		fill: false
-		// 	};
-
-		// 	for (var index = 0; index < config.data.labels.length; ++index) {
-		// 		newDataset.data.push(randomScalingFactor());
-		// 	}
-
-		// 	config.data.datasets.push(newDataset);
-		// 	window.myLine.update();
-		// });
-
-		// document.getElementById('addData').addEventListener('click', function() {
-		// 	if (config.data.datasets.length > 0) {
-		// 		var month = MONTHS[config.data.labels.length % MONTHS.length];
-		// 		config.data.labels.push(month);
-
-		// 		config.data.datasets.forEach(function(dataset) {
-		// 			dataset.data.push(randomScalingFactor());
-		// 		});
-
-		// 		window.myLine.update();
-		// 	}
-		// });
-
-		// document.getElementById('removeDataset').addEventListener('click', function() {
-		// 	config.data.datasets.splice(0, 1);
-		// 	window.myLine.update();
-		// });
-
-		// document.getElementById('removeData').addEventListener('click', function() {
-		// 	config.data.labels.splice(-1, 1); // remove the label first
-
-		// 	config.data.datasets.forEach(function(dataset) {
-		// 		dataset.data.pop();
-		// 	});
-
-		// 	window.myLine.update();
-		// });
 	</script>
 </body>
 
