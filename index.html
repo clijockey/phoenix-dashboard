@@ -119,22 +119,15 @@
 					}
 				}
 			};
-			var testingLabel = buildPacksName; //["nodejs_buildpack", "ruby_buildpack", "binary_buildpack", "java_buildpack_offline","go_buildpack", "python_buildpack", "php_buildpack"];
-			console.log("TESTING: " + testingLabel);
-			var testingValue = buildPacksUsed; //[16, 48, 34, 96, 3, 10, 1];
-			console.log("TESTING (passed): " + testingValue);
-			console.log("TESTING (raw): " + buildPacksUsed);
-			console.log(play);
+		
 
 			var radarData = {
-				// labels: ['nodejs_buildpack', 'ruby_buildpack', 'binary_buildpack', 'java_buildpack_offline','go_buildpack', 'python_buildpack', 'php_buildpack'],
-				labels: testingLabel,
+				labels: buildPacksName,
 				datasets: [{
 					backgroundColor: utils.transparentize(presets.blue),
 					lineTension: 0.4,
 					borderColor: presets.blue,
-					// data: [16, 48, 34, 96, 3, 10, 1],
-					data: testingValue,
+					data: buildPacksUsed,
 					label: "Buildpack Usage"
 			}]
 			};
