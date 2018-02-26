@@ -53,7 +53,7 @@
 		<div class="card-deck mb-3 text-center">
 			<div class="card mb-4 box-shadow">
 				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">AI</h4>
+					<h4 class="my-0 font-weight-normal">App Instances</h4>
 				</div>
 				<div class="card-body">
 					<h1 class="card-title pricing-card-title" id="numberAI"></h1>
@@ -142,85 +142,111 @@
 
 		</script>
 
-	<div style="width:75%;">
-		<canvas id="canvas"></canvas>
-	</div>
-	<br>
-	<br>
-	<script>
-		var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-		var config = {
-			type: 'line',
-			data: {
-				labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-				datasets: [{
-					label: 'My First dataset',
-					backgroundColor: window.chartColors.red,
-					borderColor: window.chartColors.red,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
-					fill: false,
-				}, {
-					label: 'My Second dataset',
-					fill: false,
-					backgroundColor: window.chartColors.blue,
-					borderColor: window.chartColors.blue,
-					data: [
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor(),
-						randomScalingFactor()
-					],
-				}]
-			},
-			options: {
-				responsive: true,
-				title: {
-					display: true,
-					text: 'Chart.js Line Chart'
-				},
-				tooltips: {
-					mode: 'index',
-					intersect: false,
-				},
-				hover: {
-					mode: 'nearest',
-					intersect: true
-				},
-				scales: {
-					xAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Month'
-						}
-					}],
-					yAxes: [{
-						display: true,
-						scaleLabel: {
-							display: true,
-							labelString: 'Value'
-						}
-					}]
-				}
-			}
-		};
 
-		window.onload = function() {
-			var ctx = document.getElementById('canvas').getContext('2d');
-			window.myLine = new Chart(ctx, config);
+
+<!-- <div style="width:75%;">
+		<canvas id="lblValues"></canvas>
+</div>
+<br>
+<br> -->
+
+<script>
+// Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
+	var str = '';
+	$.getJSON("data.json", function (json) {
+		for (o in json.organizations) {
+			var orgName = json.organizations[o].name;
+			console.log(orgName);
+			str += "<div><canvas id=" + orgName + "></canvas></div>";
+		}
+	document.getElementById('example').innerHTML = str;
+	});
+</script>
+
+<div style="width:75%;" id="example"></div>
+
+<script>
+
+	$.getJSON("data.json", function (json) {
+		for (o in json.organizations) {
+			var orgName = json.organizations[o].name;
+			var spaceName = [];
+			var spaceInstances = [];
+			
+			for (s in json.organizations[o].spaces){
+				spaceName.push(json.organizations[o].spaces[s].name);
+				spaceInstances.push(json.organizations[o].spaces[s].total_app_instance_count);
+			}
+
+			console.log(spaceName);
+			console.log(spaceInstances);
+
+			var color = Chart.helpers.color;
+
+			var options = {
+				maintainAspectRatio: true,
+				spanGaps: false,
+				elements: {
+					line: {
+						tension: 0.000001
+					}
+				}
+			};
+
+			// var str = '';
+			// var ctx = document.getElementById("lblValues");
+			// var ctx = data.organizations[o].name;
+			// str += "<div style><canvas id=" + orgName + "></canvas></div>";
+			// document.write("<div><canvas id=" + orgName + "></canvas></div>");
+			// str += "Some text";
+			// str += "<BR>";
+
+			// var ctx = document.getElementById('lblValues').innerHTML = str;
+			
+			
+			var data = {
+				labels: spaceName,
+				datasets: [{
+					label: orgName,
+					backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+					borderColor: window.chartColors.red,
+					borderWidth: 1,
+					data: spaceInstances
+				}]
+			};
+			
+			// console.log("Orgname: " + orgName);
+
+			// var myHorizontalBar = new Chart(document.getElementById(orgName), {
+			// var myHorizontalBar = new Chart(document.getElementById("rob"), {
+			// 	type: 'horizontalBar',
+			// 	data: data,
+			// 	options: options
+			// });
+
+			var canvas = document.getElementById(orgName);
+			var ctx = canvas.getContext("2d");
+			new Chart(ctx, {
+				type: 'horizontalBar',
+				data: data,
+				options: options
+			});		
+
+			// str += myHorizontalBar;
+
+			
+
 		};
-	</script>
+		// document.getElementById('example').innerHTML = str;
+	});
+</script>
+
+<div style="width:75%;">
+		<canvas id="system"></canvas>
+</div>
+
+
+
 </body>
 
 </html>
