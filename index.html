@@ -142,21 +142,12 @@
 
 		</script>
 
-
-
-<!-- <div style="width:75%;">
-		<canvas id="lblValues"></canvas>
-</div>
-<br>
-<br> -->
-
 <script>
 // Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
 	var str = '';
 	$.getJSON("data.json", function (json) {
 		for (o in json.organizations) {
 			var orgName = json.organizations[o].name;
-			console.log(orgName);
 			str += "<div><canvas id=" + orgName + "></canvas></div>";
 		}
 	document.getElementById('example').innerHTML = str;
@@ -178,9 +169,6 @@
 				spaceInstances.push(json.organizations[o].spaces[s].total_app_instance_count);
 			}
 
-			console.log(spaceName);
-			console.log(spaceInstances);
-
 			var color = Chart.helpers.color;
 
 			var options = {
@@ -192,17 +180,6 @@
 					}
 				}
 			};
-
-			// var str = '';
-			// var ctx = document.getElementById("lblValues");
-			// var ctx = data.organizations[o].name;
-			// str += "<div style><canvas id=" + orgName + "></canvas></div>";
-			// document.write("<div><canvas id=" + orgName + "></canvas></div>");
-			// str += "Some text";
-			// str += "<BR>";
-
-			// var ctx = document.getElementById('lblValues').innerHTML = str;
-			
 			
 			var data = {
 				labels: spaceName,
@@ -215,15 +192,6 @@
 				}]
 			};
 			
-			// console.log("Orgname: " + orgName);
-
-			// var myHorizontalBar = new Chart(document.getElementById(orgName), {
-			// var myHorizontalBar = new Chart(document.getElementById("rob"), {
-			// 	type: 'horizontalBar',
-			// 	data: data,
-			// 	options: options
-			// });
-
 			var canvas = document.getElementById(orgName);
 			var ctx = canvas.getContext("2d");
 			new Chart(ctx, {
@@ -232,20 +200,9 @@
 				options: options
 			});		
 
-			// str += myHorizontalBar;
-
-			
-
 		};
-		// document.getElementById('example').innerHTML = str;
 	});
 </script>
-
-<div style="width:75%;">
-		<canvas id="system"></canvas>
-</div>
-
-
 
 </body>
 
