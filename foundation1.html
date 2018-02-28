@@ -149,25 +149,24 @@
 		</header>
 
 
-		<!-- Main section-->
-		<!-- <section> -->
+		<script>
+			// TODO: Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
 
-	
-				<script>
-						// TODO: Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
-				
-						var str = '';
-						$.getJSON("data.json", function (json) {
-							for (o in json.organizations) {
-								var orgName = json.organizations[o].name;
-								
-								str += "<div class=&quot;col-xl-3 col-md-6&quot;><div class=&quot;card&quot;><div class=&quot;card-header&quot;>" + orgName + "</div><div class=&quot;card-body text-center&quot;><canvas id=" + orgName + "></canvas></div></div></div>"
-																
-								// str += "<div><canvas id=" + orgName + "></canvas></div>";
-							}
-							document.getElementById('example').innerHTML = str;
-						});
-					</script>			
+			var str = '';
+			$.getJSON("data.json", function (json) {
+				for (o in json.organizations) {
+					var orgName = json.organizations[o].name;
+
+					str +=
+						"<div class=&quot;col-xl-3 col-md-6&quot;><div class=&quot;card&quot;><div class=&quot;card-header&quot;>" +
+						orgName + "</div><div class=&quot;card-body text-center&quot;><canvas id=" + orgName +
+						"></canvas></div></div></div>"
+
+					// str += "<div><canvas id=" + orgName + "></canvas></div>";
+				}
+				document.getElementById('example').innerHTML = str;
+			});
+		</script>
 
 		<!-- FOUNDATION OVERVIEW -->
 		<div class="content-wrapper">
@@ -227,51 +226,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- END cards box-->
-			<!-- <div class="card-deck mb-3 text-center">
-			<div class="card mb-4 box-shadow">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">App Instances</h4>
-				</div>
-				<div class="card-body">
-					<h1 class="card-title pricing-card-title" id="numberAI"></h1>
-					<button type="button" class="btn btn-lg btn-block btn-outline-primary">Details</button>
-				</div>
-			</div>
-			<div class="card mb-4 box-shadow">
-				<div class="card-header">
-					<h4 class="my-0 font-weight-normal">Services</h4>
-				</div>
-				<div class="card-body">
-					<h1 class="card-title pricing-card-title">23</h1>
-					<button type="button" class="btn btn-lg btn-block btn-primary">Details</button>
-				</div>
-			</div> -->
-
-			<!-- START card-->
-			<!-- <div class="col-xl-3 col-md-4"> -->
-			<!-- <div class="card flex-row align-items-center align-items-stretch border-0">
-		<div class="col-4 d-flex align-items-center bg-purple-dark justify-content-center rounded-left">
-		<em class="icon-globe fa-3x"></em>
-		</div>
-		<div class="col-8 py-3 bg-purple rounded-right">
-		<div class="h2 mt-0" id="numberAI"></div>
-		<div class="text-uppercase">Applications</div>
-		</div>
-</div> -->
-			<!-- </div> -->
-			<!-- <div class="col-xl-3 col-lg-6 col-md-12"> -->
-			<!-- START card-->
-			<!-- <div class="card flex-row align-items-center align-items-stretch border-0">
-	<div class="col-4 d-flex align-items-center bg-green-dark justify-content-center rounded-left">
-	<em class="icon-bubbles fa-3x"></em>
-	</div>
-	<div class="col-8 py-3 bg-green rounded-right">
-	<div class="h2 mt-0" id="services"></div>
-	<div class="text-uppercase">Services</div>
-	</div> -->
-			<!-- </div> -->
-			<!-- </div> -->
 
 			<!-- INSTALLED VERSION SECTION -->
 			<section>
@@ -347,25 +301,7 @@
 				<!-- Page content-->
 				<div class="content-wrapper">
 					<h3>Buildpacks</h3>
-					<!-- BUILDPACK USAGE RADAR-->
-					<!-- <div class="card card-default">
-										<div class="card-body">
-											<a class="text-muted float-right" href="#">
-												<em class="fa fa-arrow-right"></em>
-											</a>
-											<div class="text-info">Buildpack Usage</div>
-											<div class="text-center py-4">
-												<div style="width:100%;">
-													<canvas id="chart-0"></canvas>
-												</div>
-											</div>
-										</div>
-									</div> -->
 
-
-
-
-					
 					<div class="row">
 
 						<!-- BUILDPACK USAGE RADAR -->
@@ -428,9 +364,7 @@
 				</div>
 			</section>
 
-
-
-
+			
 			<div id="chart-analyser" class="analyser"></div>
 			<!-- </div> -->
 
@@ -482,79 +416,21 @@
 				});
 			</script>
 
-			
+
 
 			<!-- APPLICATIONS SECTION -->
 			<section>
-				<!-- Page content-->
+
 				<div class="content-wrapper">
 					<h3>Application Information</h3>
 
 					<div class="row" id="example">
 
-						<!-- <div id="example"> -->
-						
-						<!-- <div class="col-xl-3 col-md-6">
-							<div class="card">
-								<div class="card-header">Default1</div>
-								<div class="card-body text-center">
-									<canvas id="chartjs-linechart"></canvas>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card">
-								<div class="card-header">Default2</div>
-								<div class="card-body text-center">
-									<canvas id="chartjs-barchart"></canvas>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card">
-								<div class="card-header">Default3</div>
-								<div class="card-body text-center">
-									<canvas id="chartjs-polarchart"></canvas>
-								</div>
-							</div>
-						</div>
-
-
-						<div class="col-xl-3 col-md-6">
-							<div class="card">
-								<div class="card-header">Default4</div>
-								<div class="card-body text-center">
-									<canvas id="chartjs-piechart"></canvas>
-								</div>
-							</div>
-						</div>
-
-						<div class="col-xl-3 col-md-6">
-								<div class="card">
-									<div class="card-header">Default ok</div>
-									<div class="card-body text-center">
-										<canvas id="chartjs-piechart"></canvas>
-									</div>
-								</div>
-							</div>
-
-							<div class="col-xl-3 col-md-6">
-									<div class="card">
-										<div class="card-header">Default more</div>
-										<div class="card-body text-center">
-											<canvas id="chartjs-piechart"></canvas>
-										</div>
-									</div>
-								</div> -->
-
-					<!-- </div> -->
-				</div>
+					</div>
 				</div>
 			</section>
-			
-			
+
+
 			<section>
 
 				<!-- DATATABLE DEMO 1-->
@@ -983,33 +859,33 @@
 				</div>
 			</section>
 
-			
+
 
 
 			<script>
-					// TODO: Import in json from S3 rather than local
-					// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
-		
-					$.getJSON("data.json", function (data) {
-		
-						var numberAI = data.total_app_instance_count;
-						var totalMemory = data.total_app_memory_used_in_mb + " MB";
-						var totalDisk = data.total_disk_quota_in_mb + " MB";
-		
-						var foundationName = "Foundation: " + data.pcf_deploy_name;
-		
-						document.getElementById("numberAI").innerHTML = numberAI;
-						// TODO: Auto calcualte the value for services
-						document.getElementById("services").innerHTML = 67;
-						document.getElementById("memory").innerHTML = totalMemory;
-						document.getElementById("disk").innerHTML = totalDisk;
-		
-						document.getElementById("heading").innerHTML = foundationName;
-					});
-				</script>
-		
-			
-			
+				// TODO: Import in json from S3 rather than local
+				// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
+
+				$.getJSON("data.json", function (data) {
+
+					var numberAI = data.total_app_instance_count;
+					var totalMemory = data.total_app_memory_used_in_mb + " MB";
+					var totalDisk = data.total_disk_quota_in_mb + " MB";
+
+					var foundationName = "Foundation: " + data.pcf_deploy_name;
+
+					document.getElementById("numberAI").innerHTML = numberAI;
+					// TODO: Auto calcualte the value for services
+					document.getElementById("services").innerHTML = 67;
+					document.getElementById("memory").innerHTML = totalMemory;
+					document.getElementById("disk").innerHTML = totalDisk;
+
+					document.getElementById("heading").innerHTML = foundationName;
+				});
+			</script>
+
+
+
 
 			<script>
 				$.getJSON("data.json", function (json) {
@@ -1065,7 +941,7 @@
 				});
 			</script>
 			</div>
-			<!-- </div> -->
+
 
 
 			<!-- Page footer-->
