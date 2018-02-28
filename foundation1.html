@@ -3,6 +3,9 @@
 
 <head>
 	<title>PCF Dashboard</title>
+
+	<!-- TODO: Clean up these css files and also move script section to the bottom -->
+
 	<!-- =============== VENDOR STYLES ===============-->
 	<!-- FONT AWESOME-->
 	<link rel="stylesheet" href="app/vendor/font-awesome/css/font-awesome.css">
@@ -13,6 +16,10 @@
 	<!-- WHIRL (spinners)-->
 	<link rel="stylesheet" href="app/vendor/whirl/dist/whirl.css">
 	<!-- =============== PAGE VENDOR STYLES ===============-->
+	<!-- Datatables-->
+	<link rel="stylesheet" href="app/vendor/datatables.net-bs4/css/dataTables.bootstrap4.css">
+	<link rel="stylesheet" href="app/vendor/datatables.net-keytable-bs/css/keyTable.bootstrap.css">
+	<link rel="stylesheet" href="app/vendor/datatables.net-responsive-bs/css/responsive.bootstrap.css">
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	    crossorigin="anonymous" id="bscss">
@@ -44,6 +51,20 @@
 	<!-- SCREENFULL-->
 	<script src="app/vendor/screenfull/dist/screenfull.js"></script>
 	<!-- =============== PAGE VENDOR SCRIPTS ===============-->
+
+
+	<!-- Datatables-->
+	<script src="app/vendor/datatables.net/js/jquery.dataTables.js"></script>
+	<script src="app/vendor/datatables.net-bs4/js/dataTables.bootstrap4.js"></script>
+	<script src="app/vendor/datatables.net-buttons/js/dataTables.buttons.js"></script>
+	<script src="app/vendor/datatables.net-buttons-bs/js/buttons.bootstrap.js"></script>
+	<script src="app/vendor/datatables.net-buttons/js/buttons.colVis.js"></script>
+	<script src="app/vendor/datatables.net-buttons/js/buttons.flash.js"></script>
+	<script src="app/vendor/datatables.net-buttons/js/buttons.html5.js"></script>
+	<script src="app/vendor/datatables.net-buttons/js/buttons.print.js"></script>
+	<script src="app/vendor/datatables.net-keytable/js/dataTables.keyTable.js"></script>
+	<script src="app/vendor/datatables.net-responsive/js/dataTables.responsive.js"></script>
+	<script src="app/vendor/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
 	<!-- SLIMSCROLL-->
 	<script src="app/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
 	<!-- SPARKLINE-->
@@ -78,7 +99,6 @@
 	</style>
 </head>
 
-
 <body>
 	<div class="wrapper">
 		<!-- top navbar-->
@@ -97,64 +117,7 @@
 					</a>
 				</div>
 				<!-- END navbar header-->
-				<!-- START Left navbar-->
-				<ul class="navbar-nav mr-auto flex-row">
 
-					<!-- START lock screen-->
-					<li class="nav-item d-none d-md-block">
-						<a class="nav-link dropdown-toggle dropdown-toggle-nocaret" href="#" data-toggle="dropdown">
-							<em class="icon-organization fa-lg"></em>
-						</a>
-
-						<!-- START Dropdown menu-->
-						<div class="dropdown-menu dropdown-menu-right animated flipInX">
-							<div class="dropdown-item">
-								<!-- START list group-->
-								<div class="list-group">
-									<!-- list item-->
-									<div class="list-group-item list-group-item-action">
-										<div class="media">
-											<div class="align-self-start mr-2">
-												<em class="fa tachometer-alt fa-2x text-info"></em>
-											</div>
-											<div class="media-body">
-												<p class="m-0">Overview</p>
-												<p class="m-0 text-muted text-sm">Consolidated view of foundations</p>
-											</div>
-										</div>
-									</div>
-									<!-- list item-->
-									<div class="list-group-item list-group-item-action">
-										<div class="media">
-											<div class="align-self-start mr-2">
-												<em class="fa sitemap fa-2x text-warning"></em>
-											</div>
-											<div class="media-body">
-												<p class="m-0" href="foundation1.html">Foundation: 1</p>
-												<!-- <p class="m-0 text-muted text-sm">You have 10 new emails</p> -->
-											</div>
-										</div>
-									</div>
-									<!-- list item-->
-									<div class="list-group-item list-group-item-action">
-										<div class="media">
-											<div class="align-self-start mr-2">
-												<em class="fa fa-tasks fa-2x text-success"></em>
-											</div>
-											<div class="media-body">
-												<p class="m-0" href="foundation1.html">Foundation: 2</p>
-												<!-- <p class="m-0 text-muted text-sm">11 pending task</p> -->
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- END list group-->
-							</div>
-						</div>
-						<!-- END Dropdown menu-->
-					</li>
-				</ul>
-				<!-- END Left navbar-->
 
 				<!-- START Right Navbar-->
 				<ul class="navbar-nav flex-row">
@@ -189,29 +152,24 @@
 		<!-- Main section-->
 		<!-- <section> -->
 
-		<script>
-			// TODO: Import in json from S3 rather than local
-			// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
+	
+				<script>
+						// TODO: Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
+				
+						var str = '';
+						$.getJSON("data.json", function (json) {
+							for (o in json.organizations) {
+								var orgName = json.organizations[o].name;
+								
+								str += "<div class=&quot;col-xl-3 col-md-6&quot;><div class=&quot;card&quot;><div class=&quot;card-header&quot;>" + orgName + "</div><div class=&quot;card-body text-center&quot;><canvas id=" + orgName + "></canvas></div></div></div>"
+																
+								// str += "<div><canvas id=" + orgName + "></canvas></div>";
+							}
+							document.getElementById('example').innerHTML = str;
+						});
+					</script>			
 
-			$.getJSON("data.json", function (data) {
-
-				var numberAI = data.total_app_instance_count;
-				var totalMemory = data.total_app_memory_used_in_mb + " MB";
-				var totalDisk = data.total_disk_quota_in_mb + " MB";
-
-				var foundationName = "Foundation: " + data.pcf_deploy_name;
-
-				document.getElementById("numberAI").innerHTML = numberAI;
-				// TODO: Auto calcualte the value for services
-				document.getElementById("services").innerHTML = 67;
-				document.getElementById("memory").innerHTML = totalMemory;
-				document.getElementById("disk").innerHTML = totalDisk;
-
-				document.getElementById("heading").innerHTML = foundationName;
-			});
-		</script>
-
-		<!-- Page content-->
+		<!-- FOUNDATION OVERVIEW -->
 		<div class="content-wrapper">
 			<div class="content-heading" id="heading"></div>
 			<div class="row">
@@ -248,7 +206,7 @@
 						<div class="px-2">
 							<em class="icon-power fa-lg float-right"></em>
 							<div class="h2 mt-0" id="memory"></div>
-							<div class="text-uppercase">Memory</div>
+							<div class="text-uppercase">Organizations</div>
 						</div>
 						<div data-sparkline="" data-type="line" data-width="100%" data-height="75px" data-line-color="#23b7e5" data-chart-range-min="0"
 						    data-fill-color="#23b7e5" data-spot-color="#23b7e5" data-min-spot-color="#23b7e5" data-max-spot-color="#23b7e5" data-highlight-spot-color="#23b7e5"
@@ -261,7 +219,7 @@
 						<div class="px-2">
 							<em class="icon-disc fa-lg float-right"></em>
 							<div class="h2 mt-0" id="disk"></div>
-							<div class="text-uppercase">Disk</div>
+							<div class="text-uppercase">Quota</div>
 						</div>
 						<div data-sparkline="" data-type="line" data-width="100%" data-height="75px" data-line-color="#7266ba" data-chart-range-min="0"
 						    data-fill-color="#7266ba" data-spot-color="#7266ba" data-min-spot-color="#7266ba" data-max-spot-color="#7266ba" data-highlight-spot-color="#7266ba"
@@ -315,36 +273,160 @@
 			<!-- </div> -->
 			<!-- </div> -->
 
-			<!-- START dashboard sidebar-->
-			<aside class="col-xl-3">
-				<!-- START loader widget-->
-				<div class="card card-default">
-					<div class="card-body">
-						<a class="text-muted float-right" href="#">
-							<em class="fa fa-arrow-right"></em>
-						</a>
-						<div class="text-info">Buildpack Usage</div>
-						<div class="text-center py-4">
+			<!-- INSTALLED VERSION SECTION -->
+			<section>
+				<!-- Page content-->
+				<div class="content-wrapper">
+					<h3>Versions</h3>
+
+					<!-- START table-->
+					<div class="card card-default">
+						<div class="card-header">Installed Tiles</div>
+						<!-- START table-responsive-->
+						<div class="table-responsive">
+							<table class="table table-bordered table-hover" id="table-ext-1">
+								<thead>
+									<tr>
+										<th></th>
+										<th></th>
+										<th>Tile</th>
+										<th>Current Version</th>
+										<th>Latest Version</th>
+										<th>Installed</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th></th>
+										<td>
+											<div class="media">
+												<img class="img-fluid circle" src="app/img/user/redis-logo.png" alt="Image">
+											</div>
+										</td>
+										<td>Redis</td>
+										<td>1.2</td>
+										<td>1.3</td>
+										<td>1 Week</td>
+									</tr>
+									<tr>
+
+										<th></th>
+										<td>
+											<div class="media">
+												<img class="img-fluid circle" src="app/img/user/pas.png" alt="Image">
+											</div>
+										</td>
+										<td>PAS</td>
+										<td>2.0</td>
+										<td>2.0.5</td>
+										<td>4 days</td>
+
+									</tr>
+									<tr>
+										<th></th>
+										<td>
+											<div class="media">
+												<img class="img-fluid circle" src="app/img/user/pks.png" alt="Image">
+											</div>
+										</td>
+										<td>PKS</td>
+										<td>1.0</td>
+										<td>1.0.1</td>
+										<td>2 days</td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- END table-responsive-->
+			</section>
 
 
-							<div style="width:100%;">
-								<canvas id="chart-0"></canvas>
+			<!-- BUILDPACK SECTION -->
+			<section>
+				<!-- Page content-->
+				<div class="content-wrapper">
+					<h3>Buildpacks</h3>
+					<!-- BUILDPACK USAGE RADAR-->
+					<!-- <div class="card card-default">
+										<div class="card-body">
+											<a class="text-muted float-right" href="#">
+												<em class="fa fa-arrow-right"></em>
+											</a>
+											<div class="text-info">Buildpack Usage</div>
+											<div class="text-center py-4">
+												<div style="width:100%;">
+													<canvas id="chart-0"></canvas>
+												</div>
+											</div>
+										</div>
+									</div> -->
 
+
+
+
+					
+					<div class="row">
+
+						<!-- BUILDPACK USAGE RADAR -->
+						<div class="col-xl-6">
+							<div class="card card-default">
+								<div class="card-header">Buildpack Usage</div>
+								<div class="card-body">
+									<div class="text-center py-4">
+										<div style="width:100%;">
+											<canvas id="chart-0"></canvas>
+										</div>
+									</div>
+								</div>
 							</div>
+						</div>
 
-
-
-
-
+						<!-- BUILDPACK USAGE TABLE -->
+						<div class="col-xl-6">
+							<div class="card card-default">
+								<div class="card-header">Usage Detail</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Type</th>
+													<th>Name</th>
+													<th>Number</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>1</td>
+													<td>Java</td>
+													<td>java_buildpack_offline</td>
+													<td>95</td>
+												</tr>
+												<tr>
+													<td>2</td>
+													<td>Java</td>
+													<td>java_buildpack_custom</td>
+													<td>78</td>
+												</tr>
+												<tr>
+													<td>3</td>
+													<td>Static</td>
+													<td>staticfile_buildpack</td>
+													<td>17</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
 						</div>
 
 					</div>
 
 				</div>
-			</aside>
-			<!-- END loader widget-->
-
-
+			</section>
 
 
 
@@ -369,7 +451,7 @@
 						maintainAspectRatio: true,
 						spanGaps: false,
 						title: {
-							display: true,
+							display: false,
 							text: 'Buildpack Usage'
 						},
 						elements: {
@@ -400,19 +482,534 @@
 				});
 			</script>
 
-			<script>
-				// TODO: Hack to get HTML canvas to display correctly on page - this needs to be cleaned up by someone that knows js :-)
-				var str = '';
-				$.getJSON("data.json", function (json) {
-					for (o in json.organizations) {
-						var orgName = json.organizations[o].name;
-						str += "<div><canvas id=" + orgName + "></canvas></div>";
-					}
-					document.getElementById('example').innerHTML = str;
-				});
-			</script>
+			
 
-			<div style="width:75%;" id="example"></div>
+			<!-- APPLICATIONS SECTION -->
+			<section>
+				<!-- Page content-->
+				<div class="content-wrapper">
+					<h3>Application Information</h3>
+
+					<div class="row" id="example">
+
+						<!-- <div id="example"> -->
+						
+						<!-- <div class="col-xl-3 col-md-6">
+							<div class="card">
+								<div class="card-header">Default1</div>
+								<div class="card-body text-center">
+									<canvas id="chartjs-linechart"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-3 col-md-6">
+							<div class="card">
+								<div class="card-header">Default2</div>
+								<div class="card-body text-center">
+									<canvas id="chartjs-barchart"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-3 col-md-6">
+							<div class="card">
+								<div class="card-header">Default3</div>
+								<div class="card-body text-center">
+									<canvas id="chartjs-polarchart"></canvas>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xl-3 col-md-6">
+							<div class="card">
+								<div class="card-header">Default4</div>
+								<div class="card-body text-center">
+									<canvas id="chartjs-piechart"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xl-3 col-md-6">
+								<div class="card">
+									<div class="card-header">Default ok</div>
+									<div class="card-body text-center">
+										<canvas id="chartjs-piechart"></canvas>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-xl-3 col-md-6">
+									<div class="card">
+										<div class="card-header">Default more</div>
+										<div class="card-body text-center">
+											<canvas id="chartjs-piechart"></canvas>
+										</div>
+									</div>
+								</div> -->
+
+					<!-- </div> -->
+				</div>
+				</div>
+			</section>
+			
+			
+			<section>
+
+				<!-- DATATABLE DEMO 1-->
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Zero configuration</div>
+						<div class="text-sm">DataTables has most features enabled by default, so all you need to do to use it with your own tables is to call the
+							construction function: $().DataTable();.</div>
+					</div>
+					<div class="card-body">
+						<table class="table table-striped my-4 w-100" id="datatable1">
+							<thead>
+								<tr>
+									<th data-priority="1">Engine</th>
+									<th>Browser</th>
+									<th>Platform(s)</th>
+									<th class="sort-numeric">Engine version</th>
+									<th class="sort-alpha" data-priority="2">CSS grade</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr class="gradeX">
+									<td>Trident</td>
+									<td>Internet Explorer 4.0</td>
+									<td>Win 95+</td>
+									<td>4</td>
+									<td>X</td>
+								</tr>
+								<tr class="gradeC">
+									<td>Trident</td>
+									<td>Internet Explorer 5.0</td>
+									<td>Win 95+</td>
+									<td>5</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Trident</td>
+									<td>Internet Explorer 5.5</td>
+									<td>Win 95+</td>
+									<td>5.5</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Trident</td>
+									<td>Internet Explorer 6</td>
+									<td>Win 98+</td>
+									<td>6</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Trident</td>
+									<td>Internet Explorer 7</td>
+									<td>Win XP SP2+</td>
+									<td>7</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Trident</td>
+									<td>AOL browser (AOL desktop)</td>
+									<td>Win XP</td>
+									<td>6</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Firefox 1.0</td>
+									<td>Win 98+ / OSX.2+</td>
+									<td>1.7</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Firefox 1.5</td>
+									<td>Win 98+ / OSX.2+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Firefox 2.0</td>
+									<td>Win 98+ / OSX.2+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Firefox 3.0</td>
+									<td>Win 2k+ / OSX.3+</td>
+									<td>1.9</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Camino 1.0</td>
+									<td>OSX.2+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Camino 1.5</td>
+									<td>OSX.3+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Netscape 7.2</td>
+									<td>Win 95+ / Mac OS 8.6-9.2</td>
+									<td>1.7</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Netscape Browser 8</td>
+									<td>Win 98SE+</td>
+									<td>1.7</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Netscape Navigator 9</td>
+									<td>Win 98+ / OSX.2+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.0</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.1</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.1</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.2</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.2</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.3</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.3</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.4</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.4</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.5</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.5</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.6</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>1.6</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.7</td>
+									<td>Win 98+ / OSX.1+</td>
+									<td>1.7</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Mozilla 1.8</td>
+									<td>Win 98+ / OSX.1+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Seamonkey 1.1</td>
+									<td>Win 98+ / OSX.2+</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Gecko</td>
+									<td>Epiphany 2.20</td>
+									<td>Gnome</td>
+									<td>1.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>Safari 1.2</td>
+									<td>OSX.3</td>
+									<td>125.5</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>Safari 1.3</td>
+									<td>OSX.3</td>
+									<td>312.8</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>Safari 2.0</td>
+									<td>OSX.4+</td>
+									<td>419.3</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>Safari 3.0</td>
+									<td>OSX.4+</td>
+									<td>522.1</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>OmniWeb 5.5</td>
+									<td>OSX.4+</td>
+									<td>420</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>iPod Touch / iPhone</td>
+									<td>iPod</td>
+									<td>420.1</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Webkit</td>
+									<td>S60</td>
+									<td>S60</td>
+									<td>413</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 7.0</td>
+									<td>Win 95+ / OSX.1+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 7.5</td>
+									<td>Win 95+ / OSX.2+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 8.0</td>
+									<td>Win 95+ / OSX.2+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 8.5</td>
+									<td>Win 95+ / OSX.2+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 9.0</td>
+									<td>Win 95+ / OSX.3+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 9.2</td>
+									<td>Win 88+ / OSX.3+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera 9.5</td>
+									<td>Win 88+ / OSX.3+</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Opera for Wii</td>
+									<td>Wii</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Nokia N800</td>
+									<td>N800</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Presto</td>
+									<td>Nintendo DS browser</td>
+									<td>Nintendo DS</td>
+									<td>8.5</td>
+									<td>C/A
+										<sup>1</sup>
+									</td>
+								</tr>
+								<tr class="gradeC">
+									<td>KHTML</td>
+									<td>Konqureror 3.1</td>
+									<td>KDE 3.1</td>
+									<td>3.1</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeA">
+									<td>KHTML</td>
+									<td>Konqureror 3.3</td>
+									<td>KDE 3.3</td>
+									<td>3.3</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeA">
+									<td>KHTML</td>
+									<td>Konqureror 3.5</td>
+									<td>KDE 3.5</td>
+									<td>3.5</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeX">
+									<td>Tasman</td>
+									<td>Internet Explorer 4.5</td>
+									<td>Mac OS 8-9</td>
+									<td>-</td>
+									<td>X</td>
+								</tr>
+								<tr class="gradeC">
+									<td>Tasman</td>
+									<td>Internet Explorer 5.1</td>
+									<td>Mac OS 7.6-9</td>
+									<td>1</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeC">
+									<td>Tasman</td>
+									<td>Internet Explorer 5.2</td>
+									<td>Mac OS 8-X</td>
+									<td>1</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Misc</td>
+									<td>NetFront 3.1</td>
+									<td>Embedded devices</td>
+									<td>-</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeA">
+									<td>Misc</td>
+									<td>NetFront 3.4</td>
+									<td>Embedded devices</td>
+									<td>-</td>
+									<td>A</td>
+								</tr>
+								<tr class="gradeX">
+									<td>Misc</td>
+									<td>Dillo 0.8</td>
+									<td>Embedded devices</td>
+									<td>-</td>
+									<td>X</td>
+								</tr>
+								<tr class="gradeX">
+									<td>Misc</td>
+									<td>Links</td>
+									<td>Text only</td>
+									<td>-</td>
+									<td>X</td>
+								</tr>
+								<tr class="gradeX">
+									<td>Misc</td>
+									<td>Lynx</td>
+									<td>Text only</td>
+									<td>-</td>
+									<td>X</td>
+								</tr>
+								<tr class="gradeC">
+									<td>Misc</td>
+									<td>IE Mobile</td>
+									<td>Windows Mobile 6</td>
+									<td>-</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeC">
+									<td>Misc</td>
+									<td>PSP browser</td>
+									<td>PSP</td>
+									<td>-</td>
+									<td>C</td>
+								</tr>
+								<tr class="gradeU">
+									<td>Other browsers</td>
+									<td>All others</td>
+									<td>-</td>
+									<td>-</td>
+									<td>U</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+
+			
+
+
+			<script>
+					// TODO: Import in json from S3 rather than local
+					// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
+		
+					$.getJSON("data.json", function (data) {
+		
+						var numberAI = data.total_app_instance_count;
+						var totalMemory = data.total_app_memory_used_in_mb + " MB";
+						var totalDisk = data.total_disk_quota_in_mb + " MB";
+		
+						var foundationName = "Foundation: " + data.pcf_deploy_name;
+		
+						document.getElementById("numberAI").innerHTML = numberAI;
+						// TODO: Auto calcualte the value for services
+						document.getElementById("services").innerHTML = 67;
+						document.getElementById("memory").innerHTML = totalMemory;
+						document.getElementById("disk").innerHTML = totalDisk;
+		
+						document.getElementById("heading").innerHTML = foundationName;
+					});
+				</script>
+		
+			
+			
 
 			<script>
 				$.getJSON("data.json", function (json) {
@@ -467,15 +1064,15 @@
 					};
 				});
 			</script>
-		</div>
-		<!-- </div> -->
+			</div>
+			<!-- </div> -->
 
 
-		<!-- Page footer-->
-		<footer>
-			<span>Visit of Githubk</span>
-		</footer>
-	</div>
+			<!-- Page footer-->
+			<footer>
+				<span>Visit on Github</span>
+			</footer>
+			</div>
 
 
 
