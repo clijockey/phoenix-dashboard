@@ -18,7 +18,7 @@ Based on initial interviews with customers that already have similar in-house to
 * Apps
     * Buildpack (general groupsing i.e Java/Go etc.)
     * Memory
-    * # of AIs
+    * No of AIs
     * Disk
     * State
     * Create time
