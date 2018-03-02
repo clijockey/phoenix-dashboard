@@ -3,16 +3,31 @@
 
 <head>
 	<title>PCF Dashboard</title>
+
+	<!-- =============== FAVICON ===============-->
+	<link rel="apple-touch-icon" sizes="57x57" href="app/img/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="app/img/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="app/img/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="app/img/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="app/img/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="app/img/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="app/img/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="app/img/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="app/img/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="app/img/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="app/img/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="app/img/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="app/img/favicon/favicon-16x16.png">
+	<link rel="manifest" href="app/img/favicon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="app/img/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
 	<!-- =============== VENDOR STYLES ===============-->
 	<!-- FONT AWESOME-->
 	<link rel="stylesheet" href="app/vendor/font-awesome/css/font-awesome.css">
 	<!-- SIMPLE LINE ICONS-->
 	<link rel="stylesheet" href="app/vendor/simple-line-icons/css/simple-line-icons.css">
-	<!-- ANIMATE.CSS-->
-	<link rel="stylesheet" href="app/vendor/animate.css/animate.css">
-	<!-- WHIRL (spinners)-->
-	<link rel="stylesheet" href="app/vendor/whirl/dist/whirl.css">
-	<!-- =============== PAGE VENDOR STYLES ===============-->
 	<!-- BOOTSTRAP -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 	    crossorigin="anonymous" id="bscss">
@@ -20,16 +35,10 @@
 	<link rel="stylesheet" href="app/css/app.css" id="maincss">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
-	<!-- MODERNIZR-->
-	<script src="app/vendor/modernizr/modernizr.custom.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.min.js"></script>
 	<!-- JQUERY-->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
 	<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 	<script language="JavaScript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	    crossorigin="anonymous"></script>
 	<!-- BOOTSTRAP-->
@@ -37,36 +46,15 @@
 	    crossorigin="anonymous"></script>
 	<!-- STORAGE API-->
 	<script src="app/vendor/js-storage/js.storage.js"></script>
-	<!-- JQUERY EASING-->
-	<script src="app/vendor/jquery.easing/jquery.easing.js"></script>
-	<!-- ANIMO-->
-	<script src="app/vendor/animo/animo.js"></script>
 	<!-- SCREENFULL-->
 	<script src="app/vendor/screenfull/dist/screenfull.js"></script>
 	<!-- =============== PAGE VENDOR SCRIPTS ===============-->
-	<!-- SLIMSCROLL-->
-	<script src="app/vendor/jquery-slimscroll/jquery.slimscroll.js"></script>
 	<!-- SPARKLINE-->
 	<script src="app/vendor/jquery-sparkline/jquery.sparkline.js"></script>
-	<!-- FLOT CHART-->
-	<script src="app/vendor/flot/jquery.flot.js"></script>
-	<script src="app/vendor/jquery.flot.tooltip/js/jquery.flot.tooltip.js"></script>
-	<script src="app/vendor/flot/jquery.flot.resize.js"></script>
-	<script src="app/vendor/flot/jquery.flot.pie.js"></script>
-	<script src="app/vendor/flot/jquery.flot.time.js"></script>
-	<script src="app/vendor/flot/jquery.flot.categories.js"></script>
-	<script src="app/vendor/jquery.flot.spline/jquery.flot.spline.js"></script>
-	<!-- EASY PIE CHART-->
-	<script src="app/vendor/easy-pie-chart/dist/jquery.easypiechart.js"></script>
-	<!-- MOMENT JS-->
-	<script src="app/vendor/moment/min/moment-with-locales.js"></script>
-	<!-- VECTOR MAP-->
-	<script src="app/vendor/ika.jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-	<script src="app/vendor/ika.jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-	<script src="app/vendor/ika.jvectormap/jquery-jvectormap-us-mill-en.js"></script>
+
 	<!-- =============== APP SCRIPTS ===============-->
 	<script src="utils.js"></script>
-	<script src="analyser.js"></script>
+	<!-- <script src="analyser.js"></script> -->
 	<!-- =============== APP SCRIPTS ===============-->
 	<script src="app/js/app.js"></script>
 	<style>
