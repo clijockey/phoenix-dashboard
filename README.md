@@ -16,14 +16,14 @@ Based on initial interviews with customers that already have similar in-house to
     * Total
     * Running
 * Apps
-    * Buildpack (general groupsing i.e Java/Go etc.)
+    * Buildpack (general grouping i.e. Java/Go etc.)
     * Memory
     * No of AIs
     * Disk
     * State
     * Create time
     * Update time
-* Aggragate
+* Aggregate
     * Dev foundations
     * Prod foundations
 * Per foundation
@@ -34,8 +34,8 @@ Based on initial interviews with customers that already have similar in-house to
 * Quota Definitions
 * Buildpack Usage
     * Identify lack of migrations - app/LoB/org/space
-* LoB/Team clasifiction
-* GUIDs are important to track (names change GUIDs are consitant)
+* LoB/Team classification
+* GUIDs are important to track (names change GUIDs are consistent)
 * App Crash Report
 * Metadata
     * Billing Codes
@@ -44,14 +44,16 @@ Based on initial interviews with customers that already have similar in-house to
     * Org Owner + Contacts
     * Foundation Name/country etc.
 
-
 ## Goals
+The goal of this work is to provide a way for customers to visualise data from foundations, in a single point,
+
+ 
 
 ## Anti-Goals
  * Not duplicate Healthwatch functionality (although might extract data from Healthwatch)
  * Not duplicate Metrics functionality
  * Duplicate any other existing Pivotal tool, if the functionality does not work as required then feedback to that team should be provided
-
+ * Calling this a "single pane of glass"
 
 
 
@@ -64,4 +66,6 @@ Based on initial interviews with customers that already have similar in-house to
 - [ ] pipeline the deployment of the app
 - [ ] Testing
 - [ ] SpringBoot app for collection of data
-- [ ] Persisstent storage of the data 
+- [ ] Persistent storage of the data 
+- [ ] PKS
+
