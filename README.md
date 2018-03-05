@@ -58,8 +58,11 @@ The goal of this work is to provide a way for customers to visualise data from f
 # MVP/PoC
 The following is the mock up of the front-end, it contains a mixture of real collected data and mocked up data.
 
-![Overview](docs/img/foundation_overview.png)
+The overall summary page;
+![Overview](docs/img/overview.png)
 
+
+Individual foundation details;
 ![Foundation Overview](docs/img/foundation_overview.png)
 ![Foundation Versions](docs/img/foundation_versions.png)
 ![Foundation Buildpacks](docs/img/foundation_buildpacks.png)
