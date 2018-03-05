@@ -90,6 +90,8 @@ The data used by the dashboard is extracted from a JSON payload (this is collect
 
 ```
 {
+    "organizations": [
+{
         "name": "myOrg",
         "guid": "78f6c703-a2d2-4a8e-aa05-9a11f9f358ca",
         "total_app_instance_count": 0,
