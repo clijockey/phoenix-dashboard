@@ -1,9 +1,8 @@
 ---
-# applications:
-# - 
-name: phoenix
-memory: 512M
-instances: 1
-buildpack: staticfile_buildpack
-path: .
-command: null
+applications:
+- name: phoenix
+  memory: 512M
+  instances: 1
+  buildpack: staticfile_buildpack
+  path: .
+  command: null
