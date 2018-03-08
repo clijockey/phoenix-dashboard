@@ -1,0 +1,30 @@
+---
+jobs:
+- name: deploy-app
+  public: false
+  serial: true
+  plan:
+  - get: git-phoenix
+    trigger: true
+  - put: deploy-phoenix
+    params:
+      manifest: git-phoenix/manifest.yml
+
+
+resources:
+- name: git-phoenix
+  type: git
+  source:
+    uri: git@github.com:clijockey/phoenix-dashboard.git
+    branch: master
+    private_key: {{github_ssh_key}}
+
+- name: deploy-phoenix
+  type: cf
+  source:
+    api: {{pcf_api}}
+    username: {{pcf_username}}
+    password: {{pcf_password}}
+    organization: {{pcf_org}}
+    space: {{pcf_space}}
+    skip_cert_check: true

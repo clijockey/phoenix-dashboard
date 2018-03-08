@@ -1,0 +1,8 @@
+---
+pcf_api: 
+pcf_username: 
+pcf_password: 
+pcf_org: 
+pcf_space: 
+skip_cert_check: true
+github_ssh_key: |
