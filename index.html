@@ -121,10 +121,9 @@
 		<!-- <section> -->
 
 		<script>
-			// TODO: Import in json from S3 rather than local
-			// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
+			$.getJSON('http://collector.cfapps.lab01.pcf.pw/callback=?', function(data) {
 
-			$.getJSON("data.json", function (data) {
+			// $.getJSON("data.json", function (data) {
 
 				var numberAI = data.total_app_instance_count;
 				var totalMemory = data.total_app_memory_used_in_mb + " MB";

@@ -119,14 +119,6 @@
 </head>
 
 <body>
-	
-	
-	
-	
-	
-	
-	
-	
 	<div class="wrapper">
 		<!-- top navbar-->
 		<header class="topnavbar-wrapper">
@@ -195,146 +187,6 @@
 			});
 		</script>
 
-<script>
-
-		var html = '';
-
-		$.getJSON("data.json", function (json) {
-			for (o in json.organizations) {
-				var orgName = json.organizations[o].name;
-				var spaceName = [];
-				var spaceInstances = [];
-
-				for (s in json.organizations[o].spaces) {
-					spaceName.push(json.organizations[o].spaces[s].name);
-					spaceInstances.push(json.organizations[o].spaces[s].total_app_instance_count);
-
-					// console.log(json.organizations[o].spaces[s].spaces.total_app_instance_count);
-					// CREATE TABLE CONTENTS
-					for (au in json.organizations[o].spaces[s].app_usages) {
-						
-							var appName = json.organizations[o].spaces[s].app_usages[au].name;
-							var appInstanceCount = json.organizations[o].spaces[s].app_usages[au].instance_count;
-							var appBuildpackName = json.organizations[o].spaces[s].app_usages[au].buildpack_name;
-							var appMemUsed = json.organizations[o].spaces[s].app_usages[au].total_memory_used_in_mb;
-							
-							var row = orgName + ":" + spaceName + ":" + appName + "," + appBuildpackName + "," + appInstanceCount + "," + appMemUsed + ",STATE"
-
-							console.log(row);
-
-							html += "<tr>";
-							html += "<td>" + appName + "</td>";
-							html += "<td>" + appBuildpackName + "</td>";
-							html += "<td>" + appInstanceCount + "</td>";
-							html += "<td>" + appMemUsed + "</td>";
-							html += "<td>X</td>";
-							html += "</tr>";
-					};
-				};
-				document.getElementById('appTable').innerHTML = html;
-				// 
-
-				// var color = Chart.helpers.color;
-
-
-//---------------------
-
-
-	
-
-// html += "<div class=&quot;card-body&quot;>";
-// html += "<table class=&quot;table table-striped my-4 w-100&quot; id=&quot;datatable1&quot;>"
-// html += "<thead>";
-// html += "<tr>";
-// html += "<th data-priority=&quot;1&quot;>Name</th>";
-// html += "<th>Buildpack</th>";
-// html += "<th>Instances</th>";
-// html += "<th class=&quot;sort-numeric&quot;>Memory</th>";
-// html += "<th class=&quot;sort-alpha&quot; data-priority=&quot;2&quot;>State</th>";
-// html += "</tr>";
-// html += "</thead>";
-// html += "<tbody>";
-						// html += "<tr class=&quot;gradeX&quot;>";
-						// html += "<td>Trident</td>";
-						// html += "<td>Internet Explorer 4.0</td>";
-						// html += "<td>Win 95+</td>";
-						// html += "<td>4</td>";
-						// html += "<td>X</td>";
-						// html += "</tr>";
-						// html += "<tr class=&quot;gradeX&quot;>";
-						// html += "<td>ffff</td>";
-						// html += "<td>dffddxplorer 4.0</td>";
-						// html += "<td>Win 95+</td>";
-						// html += "<td>4</td>";
-						// html += "<td>X</td>";
-						// html += "</tr>";
-						// html += "<tr class=&quot;gradeX&quot;>";
-						// html += "<td>fefefe</td>";
-						// html += "<td>Internet Explorer 4.0</td>";
-						// html += "<td>Win 95+</td>";
-						// html += "<td>4</td>";
-						// html += "<td>X</td>";
-						// html += "</tr>";
-// html += "</table>";
-// html += "</tbody>";
-// html += "</table>";
-// html += "</div>";
-
-
-//--------------------
-
-				var doOptions = { legend: { display: false } };
-				var barOptions = {
-					// maintainAspectRatio: true,
-					// spanGaps: false,
-					// title: {
-					// 	display: false //,
-						// text: 'Organisation: ' + orgName
-					// },
-					legand: {
-						display: false
-					}
-					// elements: {
-					// 	line: {
-					// 		tension: 0.000001
-					// 	}
-					// }
-				};
-
-				var barData = {
-					labels: spaceName,
-					datasets: [{
-						label: orgName,
-						backgroundColor: [
-							'#7266ba',
-							'#fad732',
-							'#23b7e5'
-						],
-						hoverBackgroundColor: [
-							'#7266ba',
-							'#fad732',
-							'#23b7e5'
-						],
-						// backgroundColor: 'rgba(114,102,186,0.2)',
-						// borderColor: 'rgba(114,102,186,1)',
-						// borderWidth: 1,
-						// pointBorderColor: '#fff',
-						data: spaceInstances
-					}]
-				};
-
-				var ctx = document.getElementById(orgName).getContext("2d");
-				// var ctx = canvas.getContext("2d");
-				new Chart(ctx, {
-					type: 'doughnut',
-					data: barData,
-					options: doOptions
-				});
-
-			};
-		});
-	</script>
-
 		<!-- MAIN PAGE -->
 		<div class="content-wrapper">
 
@@ -346,7 +198,7 @@
 					<div class="card bg-info-light pt-2 b0">
 						<div class="px-2">
 							<em class="icon-cloud-upload fa-lg float-right"></em>
-							<div class="h2 mt-0" id="numberAI">1700</div>
+							<div class="h2 mt-0" id="numberAI"></div>
 							<div class="text-uppercase">Applications</div>
 						</div>
 						<div data-sparkline="" data-type="line" data-width="100%" data-height="75px" data-line-color="#23b7e5" data-chart-range-min="0"
@@ -626,7 +478,14 @@
 				// TODO: Import in json from S3 rather than local
 				// $.getJSON('https://s3.eu-west-2.amazonaws.com/redwards-tf-test/pcf-demo-lab-usage-from-2018-01-01-to-2018-01-31_1518642497.json', function(data) {
 
-				$.getJSON("data.json", function (data) {
+				// $.getJSON("data.json", function (data) {
+
+				$.getJSON({ 
+					type: "GET",
+					dataType: "json",
+					crossDomain: true,
+					url: "http://collector.cfapps.lab01.pcf.pw/",
+					success: function(data) {
 
 					var numberAI = data.total_app_instance_count;
 					var totalMemory = data.total_app_memory_used_in_mb + " MB";
@@ -641,6 +500,7 @@
 					document.getElementById("disk").innerHTML = totalDisk;
 
 					document.getElementById("heading").innerHTML = foundationName;
+					}
 				});
 			</script>
 
@@ -706,7 +566,145 @@
 				</script>
 
 			<!-- Doughnut GRAPTH CALCULATION -->
+			<script>
+
+				var html = '';
+
+				$.getJSON("data.json", function (json) {
+					for (o in json.organizations) {
+						var orgName = json.organizations[o].name;
+						var spaceName = [];
+						var spaceInstances = [];
+
+						for (s in json.organizations[o].spaces) {
+							spaceName.push(json.organizations[o].spaces[s].name);
+							spaceInstances.push(json.organizations[o].spaces[s].total_app_instance_count);
+
+							// console.log(json.organizations[o].spaces[s].spaces.total_app_instance_count);
+							// CREATE TABLE CONTENTS
+							for (au in json.organizations[o].spaces[s].app_usages) {
+								
+									var appName = json.organizations[o].spaces[s].app_usages[au].name;
+									var appInstanceCount = json.organizations[o].spaces[s].app_usages[au].instance_count;
+									var appBuildpackName = json.organizations[o].spaces[s].app_usages[au].buildpack_name;
+									var appMemUsed = json.organizations[o].spaces[s].app_usages[au].total_memory_used_in_mb;
+									
+									var row = orgName + ":" + spaceName + ":" + appName + "," + appBuildpackName + "," + appInstanceCount + "," + appMemUsed + ",STATE"
+
+									// console.log(row);
+
+									html += "<tr>";
+									html += "<td>" + appName + "</td>";
+									html += "<td>" + appBuildpackName + "</td>";
+									html += "<td>" + appInstanceCount + "</td>";
+									html += "<td>" + appMemUsed + "</td>";
+									html += "<td>X</td>";
+									html += "</tr>";
+							};
+						};
+						document.getElementById('appTable').innerHTML = html;
+						// 
+
+						// var color = Chart.helpers.color;
+
+
+//---------------------
+
+
 			
+
+// html += "<div class=&quot;card-body&quot;>";
+// html += "<table class=&quot;table table-striped my-4 w-100&quot; id=&quot;datatable1&quot;>"
+// html += "<thead>";
+// html += "<tr>";
+// html += "<th data-priority=&quot;1&quot;>Name</th>";
+// html += "<th>Buildpack</th>";
+// html += "<th>Instances</th>";
+// html += "<th class=&quot;sort-numeric&quot;>Memory</th>";
+// html += "<th class=&quot;sort-alpha&quot; data-priority=&quot;2&quot;>State</th>";
+// html += "</tr>";
+// html += "</thead>";
+// html += "<tbody>";
+								// html += "<tr class=&quot;gradeX&quot;>";
+								// html += "<td>Trident</td>";
+								// html += "<td>Internet Explorer 4.0</td>";
+								// html += "<td>Win 95+</td>";
+								// html += "<td>4</td>";
+								// html += "<td>X</td>";
+								// html += "</tr>";
+								// html += "<tr class=&quot;gradeX&quot;>";
+								// html += "<td>ffff</td>";
+								// html += "<td>dffddxplorer 4.0</td>";
+								// html += "<td>Win 95+</td>";
+								// html += "<td>4</td>";
+								// html += "<td>X</td>";
+								// html += "</tr>";
+								// html += "<tr class=&quot;gradeX&quot;>";
+								// html += "<td>fefefe</td>";
+								// html += "<td>Internet Explorer 4.0</td>";
+								// html += "<td>Win 95+</td>";
+								// html += "<td>4</td>";
+								// html += "<td>X</td>";
+								// html += "</tr>";
+// html += "</table>";
+// html += "</tbody>";
+// html += "</table>";
+// html += "</div>";
+
+
+//--------------------
+
+						var doOptions = { legend: { display: false } };
+						var barOptions = {
+							// maintainAspectRatio: true,
+							// spanGaps: false,
+							// title: {
+							// 	display: false //,
+								// text: 'Organisation: ' + orgName
+							// },
+							legand: {
+								display: false
+							}
+							// elements: {
+							// 	line: {
+							// 		tension: 0.000001
+							// 	}
+							// }
+						};
+
+						var barData = {
+							labels: spaceName,
+							datasets: [{
+								label: orgName,
+								backgroundColor: [
+									'#7266ba',
+									'#fad732',
+									'#23b7e5'
+								],
+								hoverBackgroundColor: [
+									'#7266ba',
+									'#fad732',
+									'#23b7e5'
+								],
+								// backgroundColor: 'rgba(114,102,186,0.2)',
+								// borderColor: 'rgba(114,102,186,1)',
+								// borderWidth: 1,
+								// pointBorderColor: '#fff',
+								data: spaceInstances
+							}]
+						};
+
+						var ctx = document.getElementById(orgName).getContext("2d");
+						// var ctx = canvas.getContext("2d");
+						new Chart(ctx, {
+							type: 'doughnut',
+							data: barData,
+							options: doOptions
+						});
+
+					};
+				});
+			</script>
 			
 		</div>
 
